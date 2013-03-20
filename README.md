@@ -1,0 +1,4 @@
+jqCron
+======
+
+Cron jQuery plugin
