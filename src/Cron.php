@@ -9,6 +9,43 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Usage examples :
+ * ----------------
+ * 
+ * $cron = new Cron('10-30/5 12 * * *');
+ * 
+ * var_dump($cron->getMinutes());
+ * //  array(5) {
+ * //    [0]=> int(10)
+ * //    [1]=> int(15)
+ * //    [2]=> int(20)
+ * //    [3]=> int(25)
+ * //    [4]=> int(30)
+ * //  }
+ *  
+ * var_dump($cron->getText('fr'));
+ * //  string(32) "Chaque jour à 12:10,15,20,25,30"
+ *  
+ * var_dump($cron->getText('en'));
+ * //  string(30) "Every day at 12:10,15,20,25,30"
+ *  
+ * var_dump($cron->getType());
+ * //  string(3) "day"
+ *  
+ * var_dump($cron->getCronHours());
+ * //  string(2) "12"
+ *  
+ * var_dump($cron->matchExact(new \DateTime('2012-07-01 13:25:10')));
+ * //  bool(false)
+ *  
+ * var_dump($cron->matchExact(new \DateTime('2012-07-01 12:15:20')));
+ * //  bool(true)
+ *  
+ * var_dump($cron->matchWithMargin(new \DateTime('2012-07-01 12:32:50'), -3, 5));
+ * //  bool(true)
+ */
+
 class Cron {
 	const TYPE_UNDEFINED = '';
 	const TYPE_MINUTE = 'minute';
