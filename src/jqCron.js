@@ -292,27 +292,27 @@ var jqCronDefaultSettings = {
 					_selectorMins.setCronValue(items[0]);
 					_selectorTimeM.setCronValue(items[0]);
 				}
-				else if(mask.substr(-3) == '***') {			// 4 possibilities
+				else if(mask.substring(2, mask.length) == '***') {			// 4 possibilities
 					_selectorPeriod.setValue('day');
 					_selectorMins.setCronValue(items[0]);
 					_selectorTimeM.setCronValue(items[0]);
 					_selectorTimeH.setCronValue(items[1]);
 				}
-				else if(mask.substr(-3) == '-**') {			// 4 possibilities
+				else if(mask.substring(2, mask.length) == '-**') {			// 4 possibilities
 					_selectorPeriod.setValue('month');
 					_selectorMins.setCronValue(items[0]);
 					_selectorTimeM.setCronValue(items[0]);
 					_selectorTimeH.setCronValue(items[1]);
 					_selectorDom.setCronValue(items[2]);
 				}
-				else if(mask.substr(-3) == '**-') {			// 4 possibilities
+				else if(mask.substring(2, mask.length) == '**-') {			// 4 possibilities
 					_selectorPeriod.setValue('week');
 					_selectorMins.setCronValue(items[0]);
 					_selectorTimeM.setCronValue(items[0]);
 					_selectorTimeH.setCronValue(items[1]);
 					_selectorDow.setCronValue(items[4]);
 				}
-				else if (mask.substr(-2) == '-*') {			// 8 possibilities
+				else if (mask.substring(3, mask.length) == '-*') {			// 8 possibilities
 					_selectorPeriod.setValue('year');
 					_selectorMins.setCronValue(items[0]);
 					_selectorTimeM.setCronValue(items[0]);
