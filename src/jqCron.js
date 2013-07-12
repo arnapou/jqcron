@@ -1,4 +1,3 @@
-
 /*
  * This file is part of the Arnapou jqCron package.
  *
@@ -348,6 +347,19 @@ var jqCronDefaultSettings = {
 			}
 			return text;
 		};
+		
+		// get the human readable text
+		this.getHumanText = function() {
+		    var texts=[];
+		    _$obj
+		    .find('> span > span:visible')
+		    .find('.jqCron-text, .jqCron-selector > span')
+		    .each(function() {
+		        var text = $(this).text().replace(/\s+$/g, '').replace(/^\s+/g, '');
+		        text && texts.push(text);
+		    });
+		    return texts.join(' ').replace(/\s:\s/g, ':');
+		}
 	
 		// get settings
 		this.getSettings = function(){
