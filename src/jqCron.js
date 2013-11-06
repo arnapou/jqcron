@@ -581,7 +581,7 @@ var jqCronDefaultSettings = {
 		
 		// set the cron value 
 		this.setCronValue = function(str) {
-			var values = [], m ,i, n = str.length;
+			var values = [], m ,i, n;
 			if(str !== '*') {
 				while(str != '') {
 					// test "*/n" expression
@@ -591,6 +591,7 @@ var jqCronDefaultSettings = {
 							values.push(i);
 						}
 						str = str.replace(m[0], '');
+						continue;
 					}
 					// test "a-b/n" expression
 					m = str.match(/^([0-9]+)-([0-9]+)\/([0-9]+),?/);
@@ -599,6 +600,7 @@ var jqCronDefaultSettings = {
 							values.push(i);
 						}
 						str = str.replace(m[0], '');
+						continue;
 					}
 					// test "a-b" expression
 					m = str.match(/^([0-9]+)-([0-9]+),?/);
@@ -607,18 +609,17 @@ var jqCronDefaultSettings = {
 							values.push(i);
 						}
 						str = str.replace(m[0], '');
+						continue;
 					}
 					// test "c" expression
 					m = str.match(/^([0-9]+),?/);
 					if(m && m.length == 2) {
 						values.push(m[1]|0);
 						str = str.replace(m[0], '');
+						continue;
 					}
-					if(n == str.length) {
-						// something goes wrong in the expression
-						return ;
-					}
-					n = str.length;
+					// something goes wrong in the expression
+					return ;
 				}
 			}
 			_self.setValue(values);
