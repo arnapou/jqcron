@@ -1,0 +1,20 @@
+body {
+	background: #fff;
+	font-size: 14px;
+}
+
+table {
+	width: 100%;
+}
+
+td {
+	width: 50%;
+	padding: .5em;
+}
+
+pre {
+	font-family: consolas, courier new;
+	overflow: hidden;
+	border-right: 1px solid #888;
+	font-size: 12px;
+}
