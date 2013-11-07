@@ -506,7 +506,6 @@ class Cron {
 			}
 		}
 		else if ( $string !== '*' ) {
-			$n = strlen($string);
 			while ( $string != '' ) {
 				// test "*/n" expression
 				if ( preg_match('/^\*\/([0-9]+),?/', $string, $m) ) {
@@ -514,6 +513,7 @@ class Cron {
 						$array[] = intval($i);
 					}
 					$string = str_replace($m[0], '', $string);
+					continue;
 				}
 				// test "a-b/n" expression
 				if ( preg_match('/^([0-9]+)-([0-9]+)\/([0-9]+),?/', $string, $m) ) {
@@ -521,6 +521,7 @@ class Cron {
 						$array[] = intval($i);
 					}
 					$string = str_replace($m[0], '', $string);
+					continue;
 				}
 				// test "a-b" expression
 				if ( preg_match('/^([0-9]+)-([0-9]+),?/', $string, $m) ) {
@@ -528,6 +529,7 @@ class Cron {
 						$array[] = intval($i);
 					}
 					$string = str_replace($m[0], '', $string);
+					continue;
 				}
 				// test "c" expression
 				if ( preg_match('/^([0-9]+),?/', $string, $m) ) {
@@ -535,12 +537,10 @@ class Cron {
 						$array[] = intval($m[1]);
 					}
 					$string = str_replace($m[0], '', $string);
+					continue;
 				}
-				if ( $n == strlen($string) ) {
-					// something goes wrong in the expression
-					return array();
-				}
-				$n = strlen($string);
+				// something goes wrong in the expression
+				return array();
 			}
 		}
 		sort($array);
