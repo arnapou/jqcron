@@ -13,33 +13,17 @@ echo strtr(file_get_contents('demo.tpl'),
 __halt_compiler();
 ==========
 $(function(){
-    var cron =
-        $('.example5')
-        .jqCron()
-        .jqCronGetInstance();
-     
-    $('.a5-enable').click(function(e){
-        cron.enable();
-        e.preventDefault();
-    });
-     
-    $('.a5-disable').click(function(e){
-        cron.disable();
-        e.preventDefault();
-    });
-     
-    $('.a5-toggle').click(function(e){
-        if(cron.isDisabled())
-            cron.enable();
-        else
-            cron.disable();
-        e.preventDefault();
+    $('.example4-selector').jqCron({
+        default_value: '30 2 1 * *',
+        numeric_zero_pad: true,
+        bind_to: $('.example4-span'),
+        bind_method: {
+            set: function($element, value) {
+                $element.html(value);
+            }
+        }
     });
 });
 ==========
-<div class="example5"></div>
-<p style="margin-top:1em">
-    <a href="#" class="a5-enable">Enable</a>
-    <a href="#" class="a5-disable">Disable</a>
-    <a href="#" class="a5-toggle">Toggle</a>
-</p>
+<div class="example4-selector"></div>
+<p><span class="example4-span"></span></p>
