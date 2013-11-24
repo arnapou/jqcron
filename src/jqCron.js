@@ -71,6 +71,7 @@ var jqCronDefaultSettings = {
 	multiple_dow: false,
 	multiple_time_hours: false,
 	multiple_time_minutes: false,
+	numeric_zero_pad: false,
 	default_period: 'day',
 	default_value: '',
 	no_reset_button: true,
@@ -546,6 +547,7 @@ var jqCronDefaultSettings = {
 		var _values    = {};
 		var _value     = [];
 		var _hasNumericTexts = true;
+		var _numeric_zero_pad = _cron.getSettings().numeric_zero_pad;
 		
 		// return an array without doublon
 		function array_unique(l){ 
@@ -728,8 +730,11 @@ var jqCronDefaultSettings = {
 	
 		// add a (key, value) pair
 		this.add = function(key, value) {
-			var $item = $('<li>' + value + '</li>');
 			if(!(value+'').match(/^[0-9]+$/)) _hasNumericTexts = false;
+			if(_numeric_zero_pad && _hasNumericTexts && value < 10) {
+				value = '0'+value;
+			}
+			var $item = $('<li>' + value + '</li>');
 			_$list.append($item);
 			_values[key] = $item;
 			$item.click(function(){
