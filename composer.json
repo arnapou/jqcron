@@ -10,10 +10,5 @@
 	],
 	"autoload": {
 		"files": [ "src/Cron.php" ]
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "1.x-dev"
-		}
 	}
 }
