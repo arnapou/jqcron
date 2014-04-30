@@ -53,6 +53,27 @@ var jqCronDefaultSettings = {
 			error4: 'Unrecognized expression',
 			weekdays: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
 			months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+		},
+		de : {
+			empty: '-Alle-',
+			name_minute: 'Minute',
+			name_hour: 'Stunde',
+			name_day: 'Tag',
+			name_week: 'Woche',
+			name_month: 'Monat',
+			name_year: 'Jahr',
+			text_period: 'Jede <b />',
+			text_mins: 'um <b /> minuten nach der Stunde',
+			text_time: 'um <b />:<b />',
+			text_dow: 'am <b />',
+			text_month: 'im <b />',
+			text_dom: 'am <b />',
+			error1: 'Der Tag %s wird nicht unterst&uuml;tzt!',
+			error2: 'Ung&uuml;ltige Anzahl an Werten!',
+			error3: 'Das jquery_element sollte in den jqCron-Einstellungen gesetzt werden!',
+			error4: 'Ung&uuml;ltiger Ausdruck',
+			weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+			months: ['J&auml;nner', 'Februar', 'M&auml;rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
 		}
 	},
 	monthdays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
