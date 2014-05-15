@@ -147,10 +147,11 @@ var jqCronDefaultSettings = {
  */
 (function($){
 	$.fn.jqCron = function(settings) {
+		var saved_settings = settings;
 		return this.each(function() {
 			var cron, saved;
 			var $this = $(this);
-			settings = jqCronMergeSettings(settings); // clone settings
+			var settings = jqCronMergeSettings(saved_settings); // clone settings
 			if(!settings.jquery_container) {
 				if($this.is(':container')) {
 					settings.jquery_element = $this.uniqueId('jqCron');
