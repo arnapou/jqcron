@@ -46,7 +46,7 @@ var jqCronDefaultSettings = {
 
 /**
  * Custom extend of json for jqCron settings.
- * We don't use jQuery.extend because simple extend does not fit our needs, and deep extend has a bad 
+ * We don't use jQuery.extend because simple extend does not fit our needs, and deep extend has a bad
  * feature for us : it replaces keys of "Arrays" instead of replacing the full array.
  */
 (function($){
@@ -508,7 +508,7 @@ var jqCronDefaultSettings = {
 		var _numeric_zero_pad = _cron.getSettings().numeric_zero_pad;
 
 		// return an array without doublon
-		function array_unique(l){ 
+		function array_unique(l){
 			var i=0,n=l.length,k={},a=[];
 			while(i<n) {
 				k[l[i]] || (k[l[i]] = 1 && a.push(l[i]));
@@ -539,7 +539,7 @@ var jqCronDefaultSettings = {
 			return cron.join(',');
 		};
 
-		// set the cron value 
+		// set the cron value
 		this.setCronValue = function(str) {
 			var values = [], m ,i, n;
 			if(str !== '*') {
@@ -629,7 +629,7 @@ var jqCronDefaultSettings = {
 			if(!$.isArray(keys)) keys = [keys];
 			_$list.find('li').removeClass('selected');
 			keys = array_unique(keys);
-			keys.sort(function(a, b){ 
+			keys.sort(function(a, b){
 				var ta = typeof(a);
 				var tb = typeof(b);
 				if(ta==tb && ta=="number") return a-b;
