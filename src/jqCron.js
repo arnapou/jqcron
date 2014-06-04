@@ -219,8 +219,8 @@ var jqCronDefaultSettings = {
 		var _selectorPeriod, _selectorMins, _selectorTimeH, _selectorTimeM, _selectorDow, _selectorDom, _selectorMonth;
 
 		// instanciate a new selector
-		function newSelector($block, multiple){
-			var selector = new jqCronSelector(_self, $block, multiple);
+		function newSelector($block, multiple, type){
+			var selector = new jqCronSelector(_self, $block, multiple, type);
 			selector.$.bind('selector:open', function(){
 				// we close all opened selectors of all other jqCron
 				for(var n = jqCronInstances.length; n--; ){
@@ -447,7 +447,7 @@ var jqCronDefaultSettings = {
 
 			// PERIOD
 			_$blockPERIOD.append(_self.getText('text_period'));
-			_selectorPeriod = newSelector(_$blockPERIOD, false);
+			_selectorPeriod = newSelector(_$blockPERIOD, false, 'period');
 			settings.enabled_minute && _selectorPeriod.add('minute', _self.getText('name_minute'));
 			settings.enabled_hour   && _selectorPeriod.add('hour',   _self.getText('name_hour'));
 			settings.enabled_day    && _selectorPeriod.add('day',    _self.getText('name_day'));
@@ -484,39 +484,39 @@ var jqCronDefaultSettings = {
 
 			// MINS  (minutes)
 			_$blockMINS.append(_self.getText('text_mins'));
-			_selectorMins = newSelector(_$blockMINS, settings.multiple_mins);
+			_selectorMins = newSelector(_$blockMINS, settings.multiple_mins, 'minutes');
 			for(i=0, list=settings.minutes; i<list.length; i++){
 				_selectorMins.add(list[i], list[i]);
 			}
 
 			// TIME  (hour:min)
 			_$blockTIME.append(_self.getText('text_time'));
-			_selectorTimeH = newSelector(_$blockTIME, settings.multiple_time_hours);
+			_selectorTimeH = newSelector(_$blockTIME, settings.multiple_time_hours, 'time_hours');
 			for(i=0, list=settings.hours; i<list.length; i++){
 				_selectorTimeH.add(list[i], list[i]);
 			}
-			_selectorTimeM = newSelector(_$blockTIME, settings.multiple_time_minutes);
+			_selectorTimeM = newSelector(_$blockTIME, settings.multiple_time_minutes, 'time_minutes');
 			for(i=0, list=settings.minutes; i<list.length; i++){
 				_selectorTimeM.add(list[i], list[i]);
 			}
 
 			// DOW  (day of week)
 			_$blockDOW.append(_self.getText('text_dow'));
-			_selectorDow = newSelector(_$blockDOW, settings.multiple_dow);
+			_selectorDow = newSelector(_$blockDOW, settings.multiple_dow, 'day_of_week');
 			for(i=0, list=_self.getText('weekdays'); i<list.length; i++){
 				_selectorDow.add(i+1, list[i]);
 			}
 
 			// DOM  (day of month)
 			_$blockDOM.append(_self.getText('text_dom'));
-			_selectorDom = newSelector(_$blockDOM, settings.multiple_dom);
+			_selectorDom = newSelector(_$blockDOM, settings.multiple_dom, 'day_of_month');
 			for(i=0, list=settings.monthdays; i<list.length; i++){
 				_selectorDom.add(list[i], list[i]);
 			}
 
 			// MONTH  (day of week)
 			_$blockMONTH.append(_self.getText('text_month'));
-			_selectorMonth = newSelector(_$blockMONTH, settings.multiple_month);
+			_selectorMonth = newSelector(_$blockMONTH, settings.multiple_month, 'month');
 			for(i=0, list=_self.getText('months'); i<list.length; i++){
 				_selectorMonth.add(i+1, list[i]);
 			}
@@ -561,7 +561,7 @@ var jqCronDefaultSettings = {
  * jqCronSelector class
  */
 (function($){
-	function jqCronSelector(_cron, _$block, _multiple){
+	function jqCronSelector(_cron, _$block, _multiple, _type){
 		var _self      = this;
 		var _$list     = $('<ul class="jqCron-selector-list"></ul>');
 		var _$title    = $('<span class="jqCron-selector-title"></span>');
@@ -727,7 +727,10 @@ var jqCronDefaultSettings = {
 			var getValueText = function(key) {
 				return (key in _values) ? _values[key].text() : key;
 			};
-			if(_value.length == 0) return _cron.getText('empty');
+
+			if(_value.length == 0) {
+				return _cron.getText('empty_' + _type) || _cron.getText('empty');
+			}
 			var cron = [getValueText(_value[0])], i, s = _value[0], c = _value[0], n = _value.length;
 			for(i=1; i<n; i++) {
 				if(_value[i] == c+1) {
