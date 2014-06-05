@@ -88,6 +88,17 @@ var jqCronDefaultSettings = {
 			var cron, saved;
 			var $this = $(this);
 			var settings = jqCronMergeSettings(saved_settings); // clone settings
+			var translations = settings.texts[settings.lang];
+
+			if (typeof(translations) !== 'object' || $.isEmptyObject(translations)) {
+				console && console.error(
+					'Missing translations for language "' + settings.lang + '". ' +
+					'Please include jqCron.' + settings.lang + '.js or manually provide ' +
+					'the necessary translations when calling $.fn.jqCron().'
+				);
+				return;
+			}
+
 			if(!settings.jquery_container) {
 				if($this.is(':container')) {
 					settings.jquery_element = $this.uniqueId('jqCron');
