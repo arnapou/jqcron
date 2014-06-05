@@ -169,12 +169,12 @@ var jqCronDefaultSettings = {
 					return;
 				}
 			}
-			
+
 			// autoset bind_to if it is an input
 			if($this.is(':input')) {
 				settings.bind_to = settings.bind_to || $this;
 			}
-			
+
 			// init cron object
 			if(settings.bind_to){
 				if(settings.bind_to.is(':input')) {
@@ -201,7 +201,7 @@ var jqCronDefaultSettings = {
  */
 (function($){
 	var jqCronInstances = [];
-	
+
 	function jqCron(settings) {
 		var _initialized  = false;
 		var _self         = this;
@@ -217,10 +217,10 @@ var jqCronDefaultSettings = {
 		var _$cross       = $('<span class="jqCron-cross">&#10008;</span>');
 		var _selectors    = [];
 		var _selectorPeriod, _selectorMins, _selectorTimeH, _selectorTimeM, _selectorDow, _selectorDom, _selectorMonth;
-		
+
 		// instanciate a new selector
-		function newSelector($block, multiple){
-			var selector = new jqCronSelector(_self, $block, multiple);
+		function newSelector($block, multiple, type){
+			var selector = new jqCronSelector(_self, $block, multiple, type);
 			selector.$.bind('selector:open', function(){
 				// we close all opened selectors of all other jqCron
 				for(var n = jqCronInstances.length; n--; ){
@@ -256,25 +256,25 @@ var jqCronDefaultSettings = {
 			_selectors.push(selector);
 			return selector;
 		}
-		
+
 		// disable the selector
 		this.disable = function(){
 			_$obj.addClass('disable');
 			settings.disable = true;
 			_self.closeSelectors();
 		};
-		
+
 		// return if the selector is disabled
 		this.isDisabled = function() {
 			return settings.disable == true;
 		};
-		
+
 		// enable the selector
 		this.enable = function(){
 			_$obj.removeClass('disable');
 			settings.disable = false;
 		};
-		
+
 		// get cron value
 		this.getCron = function(){
 			var period = _selectorPeriod.getValue();
@@ -297,7 +297,7 @@ var jqCronDefaultSettings = {
 			}
 			return items.join(' ');
 		};
-		
+
 		// set cron (string like * * * * *)
 		this.setCron = function(str) {
 			if(!str) return;
@@ -348,19 +348,19 @@ var jqCronDefaultSettings = {
 				_self.clearError();
 			} catch(e) {}
 		};
-		
+
 		// close all child selectors
 		this.closeSelectors = function(){
 			for(var n = _selectors.length; n--; ){
 				_selectors[n].close();
 			}
 		};
-	
+
 		// get the main element id
 		this.getId = function(){
 			return _$elt.attr('id');
 		}
-	
+
 		// get the translated text
 		this.getText = function(key) {
 			var text = settings.texts[settings.lang][key] || null;
@@ -370,7 +370,7 @@ var jqCronDefaultSettings = {
 			}
 			return text;
 		};
-		
+
 		// get the human readable text
 		this.getHumanText = function() {
 		    var texts=[];
@@ -383,24 +383,24 @@ var jqCronDefaultSettings = {
 		    });
 		    return texts.join(' ').replace(/\s:\s/g, ':');
 		}
-	
+
 		// get settings
 		this.getSettings = function(){
 			return settings;
 		};
-	
+
 		// display an error
 		this.error = function(msg) {
 			console && console.error('[jqCron Error] ' + msg);
 			_$obj.addClass('jqCron-error').attr('title', msg);
 			throw msg;
 		};
-		
+
 		// clear error
 		this.clearError = function(){
 			_$obj.attr('title', '').removeClass('jqCron-error');
 		};
-	
+
 		// clear
 		this.clear = function() {
 			_selectorDom.setValue([]);
@@ -411,12 +411,12 @@ var jqCronDefaultSettings = {
 			_selectorTimeM.setValue([]);
 			_self.triggerChange();
 		};
-		
+
 		// init (called in constructor)
 		this.init = function(){
 			var n,i,list;
 			if(_initialized) return;
-			
+
 			settings = jqCronMergeSettings(settings);
 			settings.jquery_element || _self.error(_self.getText('error3'));
 			_$elt = settings.jquery_element;
@@ -432,22 +432,22 @@ var jqCronDefaultSettings = {
 			_$blocks.append(_$blockMINS);
 			_$blocks.append(_$blockDOW);
 			_$blocks.append(_$blockTIME);
-			
+
 			// various binding
 			_$cross.click(function(){
 				_self.isDisabled() || _self.clear();
 			});
-			
+
 			// binding from cron to target
 			_$obj.bind('cron:change', function(evt, value){
 				if(!settings.bind_to) return;
 				settings.bind_method.set && settings.bind_method.set(settings.bind_to, value);
 				_self.clearError();
 			});
-		
+
 			// PERIOD
 			_$blockPERIOD.append(_self.getText('text_period'));
-			_selectorPeriod = newSelector(_$blockPERIOD, false);
+			_selectorPeriod = newSelector(_$blockPERIOD, false, 'period');
 			settings.enabled_minute && _selectorPeriod.add('minute', _self.getText('name_minute'));
 			settings.enabled_hour   && _selectorPeriod.add('hour',   _self.getText('name_hour'));
 			settings.enabled_day    && _selectorPeriod.add('day',    _self.getText('name_day'));
@@ -481,46 +481,46 @@ var jqCronDefaultSettings = {
 				}
 			});
 			_selectorPeriod.setValue(settings.default_period);
-		
+
 			// MINS  (minutes)
 			_$blockMINS.append(_self.getText('text_mins'));
-			_selectorMins = newSelector(_$blockMINS, settings.multiple_mins);
+			_selectorMins = newSelector(_$blockMINS, settings.multiple_mins, 'minutes');
 			for(i=0, list=settings.minutes; i<list.length; i++){
 				_selectorMins.add(list[i], list[i]);
 			}
-		
+
 			// TIME  (hour:min)
 			_$blockTIME.append(_self.getText('text_time'));
-			_selectorTimeH = newSelector(_$blockTIME, settings.multiple_time_hours);
+			_selectorTimeH = newSelector(_$blockTIME, settings.multiple_time_hours, 'time_hours');
 			for(i=0, list=settings.hours; i<list.length; i++){
 				_selectorTimeH.add(list[i], list[i]);
 			}
-			_selectorTimeM = newSelector(_$blockTIME, settings.multiple_time_minutes);
+			_selectorTimeM = newSelector(_$blockTIME, settings.multiple_time_minutes, 'time_minutes');
 			for(i=0, list=settings.minutes; i<list.length; i++){
 				_selectorTimeM.add(list[i], list[i]);
 			}
-		
+
 			// DOW  (day of week)
 			_$blockDOW.append(_self.getText('text_dow'));
-			_selectorDow = newSelector(_$blockDOW, settings.multiple_dow);
+			_selectorDow = newSelector(_$blockDOW, settings.multiple_dow, 'day_of_week');
 			for(i=0, list=_self.getText('weekdays'); i<list.length; i++){
 				_selectorDow.add(i+1, list[i]);
 			}
-		
+
 			// DOM  (day of month)
 			_$blockDOM.append(_self.getText('text_dom'));
-			_selectorDom = newSelector(_$blockDOM, settings.multiple_dom);
+			_selectorDom = newSelector(_$blockDOM, settings.multiple_dom, 'day_of_month');
 			for(i=0, list=settings.monthdays; i<list.length; i++){
 				_selectorDom.add(list[i], list[i]);
 			}
-		
+
 			// MONTH  (day of week)
 			_$blockMONTH.append(_self.getText('text_month'));
-			_selectorMonth = newSelector(_$blockMONTH, settings.multiple_month);
+			_selectorMonth = newSelector(_$blockMONTH, settings.multiple_month, 'month');
 			for(i=0, list=_self.getText('months'); i<list.length; i++){
 				_selectorMonth.add(i+1, list[i]);
 			}
-		
+
 			// close all selectors when we click in body
 			$('body').click(function(){
 				var i, n = _selectors.length;
@@ -529,7 +529,7 @@ var jqCronDefaultSettings = {
 				}
 			});
 			_initialized = true;
-			
+
 			// default value
 			if(settings.default_value) {
 				_self.setCron(settings.default_value);
@@ -540,13 +540,13 @@ var jqCronDefaultSettings = {
 		this.triggerChange = function(){
 			_$obj.trigger('cron:change', _self.getCron());
 		};
-		
+
 		// store instance in array
 		jqCronInstances.push(this);
-		
+
 		// expose main jquery object
 		this.$ = _$obj;
-		
+
 		// init
 		try {
 			this.init();
@@ -561,7 +561,7 @@ var jqCronDefaultSettings = {
  * jqCronSelector class
  */
 (function($){
-	function jqCronSelector(_cron, _$block, _multiple){
+	function jqCronSelector(_cron, _$block, _multiple, _type){
 		var _self      = this;
 		var _$list     = $('<ul class="jqCron-selector-list"></ul>');
 		var _$title    = $('<span class="jqCron-selector-title"></span>');
@@ -570,7 +570,7 @@ var jqCronDefaultSettings = {
 		var _value     = [];
 		var _hasNumericTexts = true;
 		var _numeric_zero_pad = _cron.getSettings().numeric_zero_pad;
-		
+
 		// return an array without doublon
 		function array_unique(l){ 
 			var i=0,n=l.length,k={},a=[];
@@ -580,12 +580,12 @@ var jqCronDefaultSettings = {
 			}
 			return a;
 		}
-	
+
 		// get the value (an array if multiple, else a single value)
 		this.getValue = function(){
 			return _multiple ? _value : _value[0];
 		};
-		
+
 		// get a correct string for cron
 		this.getCronValue = function(){
 			if(_value.length == 0) return '*';
@@ -602,7 +602,7 @@ var jqCronDefaultSettings = {
 			}
 			return cron.join(',');
 		};
-		
+
 		// set the cron value 
 		this.setCronValue = function(str) {
 			var values = [], m ,i, n;
@@ -648,29 +648,29 @@ var jqCronDefaultSettings = {
 			}
 			_self.setValue(values);
 		};
-	
+
 		// close the selector
 		this.close = function(){
 			_$selector.trigger('selector:close');
 		};
-		
+
 		// open the selector
 		this.open = function(){
 			_$selector.trigger('selector:open');
 		};
-	
+
 		// whether the selector is open
 		this.isOpened = function() {
 			return _$list.is(':visible');
 		};
-	
+
 		// add a selected value to the list
 		this.addValue = function(key) {
 			var values = _multiple ? _value.slice(0) : []; // clone array
 			values.push(key);
 			_self.setValue(values);
 		};
-	
+
 		// remove a selected value from the list
 		this.removeValue = function(key) {
 			if(_multiple) {
@@ -686,7 +686,7 @@ var jqCronDefaultSettings = {
 				_self.clear();
 			}
 		};
-	
+
 		// set the selected value(s) of the list
 		this.setValue = function(keys){
 			var i, newKeys = [], saved = _value.join(' ');
@@ -721,14 +721,16 @@ var jqCronDefaultSettings = {
 			}
 			return false;
 		};
-		
+
 		// get the title text
 		this.getTitleText = function(){
 			var getValueText = function(key) {
 				return (key in _values) ? _values[key].text() : key;
 			};
-			
-			if(_value.length == 0) return _cron.getText('empty');
+
+			if(_value.length == 0) {
+				return _cron.getText('empty_' + _type) || _cron.getText('empty');
+			}
 			var cron = [getValueText(_value[0])], i, s = _value[0], c = _value[0], n = _value.length;
 			for(i=1; i<n; i++) {
 				if(_value[i] == c+1) {
@@ -742,14 +744,14 @@ var jqCronDefaultSettings = {
 			}
 			return cron.join(',');
 		};
-	
+
 		// clear list
 		this.clear = function() {
 			_values = {};
 			_self.setValue([]);
 			_$list.empty();
 		};
-	
+
 		// add a (key, value) pair
 		this.add = function(key, value) {
 			if(!(value+'').match(/^[0-9]+$/)) _hasNumericTexts = false;
@@ -769,10 +771,10 @@ var jqCronDefaultSettings = {
 				}
 			});
 		};
-		
+
 		// expose main jquery object
 		this.$ = _$selector;
-	
+
 		// constructor
 		_$block.find('b:eq(0)').after(_$selector).remove();
 		_$selector
