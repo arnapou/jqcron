@@ -11,75 +11,11 @@
  * Default settings
  */
 var jqCronDefaultSettings = {
-	texts: {
-		fr : {
-			empty: '-tout-',
-			name_minute: 'minute',
-			name_hour: 'heure',
-			name_day: 'jour',
-			name_week: 'semaine',
-			name_month: 'mois',
-			name_year: 'année',
-			text_period: 'Chaque <b />',
-			text_mins: 'à <b /> minutes',
-			text_time: 'à <b />:<b />',
-			text_dow: 'le <b />',
-			text_month: 'de <b />',
-			text_dom: 'le <b />',
-			error1: 'La balise %s n\'est pas supportée !',
-			error2: 'Mauvais nombre d\'éléments',
-			error3: 'La propriété jquery_element doit être définie dans les paramètres jqCron',
-			error4: 'Expression non reconnue',
-			weekdays: ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
-			months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
-		},
-		en : {
-			empty: '-all-',
-			name_minute: 'minute',
-			name_hour: 'hour',
-			name_day: 'day',
-			name_week: 'week',
-			name_month: 'month',
-			name_year: 'year',
-			text_period: 'Every <b />',
-			text_mins: 'at <b /> minutes past the hour',
-			text_time: 'at <b />:<b />',
-			text_dow: 'on <b />',
-			text_month: 'of <b />',
-			text_dom: 'on the <b />',
-			error1: 'The tag %s is not supported !',
-			error2: 'Bad number of elements',
-			error3: 'The jquery_element should be set into jqCron settings',
-			error4: 'Unrecognized expression',
-			weekdays: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-			months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
-		},
-		de : {
-			empty: '-Alle-',
-			name_minute: 'Minute',
-			name_hour: 'Stunde',
-			name_day: 'Tag',
-			name_week: 'Woche',
-			name_month: 'Monat',
-			name_year: 'Jahr',
-			text_period: 'Jede <b />',
-			text_mins: 'um <b /> minuten nach der Stunde',
-			text_time: 'um <b />:<b />',
-			text_dow: 'am <b />',
-			text_month: 'im <b />',
-			text_dom: 'am <b />',
-			error1: 'Der Tag %s wird nicht unterst&uuml;tzt!',
-			error2: 'Ung&uuml;ltige Anzahl an Werten!',
-			error3: 'Das jquery_element sollte in den jqCron-Einstellungen gesetzt werden!',
-			error4: 'Ung&uuml;ltiger Ausdruck',
-			weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
-			months: ['J&auml;nner', 'Februar', 'M&auml;rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
-		}
-	},
+	texts: {},
 	monthdays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
 	hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
 	minutes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59],
-	lang: 'fr',
+	lang: 'en',
 	enabled_minute: false,
 	enabled_hour: true,
 	enabled_day: true,
@@ -110,7 +46,7 @@ var jqCronDefaultSettings = {
 
 /**
  * Custom extend of json for jqCron settings.
- * We don't use jQuery.extend because simple extend does not fit our needs, and deep extend has a bad 
+ * We don't use jQuery.extend because simple extend does not fit our needs, and deep extend has a bad
  * feature for us : it replaces keys of "Arrays" instead of replacing the full array.
  */
 (function($){
@@ -152,6 +88,17 @@ var jqCronDefaultSettings = {
 			var cron, saved;
 			var $this = $(this);
 			var settings = jqCronMergeSettings(saved_settings); // clone settings
+			var translations = settings.texts[settings.lang];
+
+			if (typeof(translations) !== 'object' || $.isEmptyObject(translations)) {
+				console && console.error(
+					'Missing translations for language "' + settings.lang + '". ' +
+					'Please include jqCron.' + settings.lang + '.js or manually provide ' +
+					'the necessary translations when calling $.fn.jqCron().'
+				);
+				return;
+			}
+
 			if(!settings.jquery_container) {
 				if($this.is(':container')) {
 					settings.jquery_element = $this.uniqueId('jqCron');
@@ -572,7 +519,7 @@ var jqCronDefaultSettings = {
 		var _numeric_zero_pad = _cron.getSettings().numeric_zero_pad;
 
 		// return an array without doublon
-		function array_unique(l){ 
+		function array_unique(l){
 			var i=0,n=l.length,k={},a=[];
 			while(i<n) {
 				k[l[i]] || (k[l[i]] = 1 && a.push(l[i]));
@@ -603,7 +550,7 @@ var jqCronDefaultSettings = {
 			return cron.join(',');
 		};
 
-		// set the cron value 
+		// set the cron value
 		this.setCronValue = function(str) {
 			var values = [], m ,i, n;
 			if(str !== '*') {
@@ -693,7 +640,7 @@ var jqCronDefaultSettings = {
 			if(!$.isArray(keys)) keys = [keys];
 			_$list.find('li').removeClass('selected');
 			keys = array_unique(keys);
-			keys.sort(function(a, b){ 
+			keys.sort(function(a, b){
 				var ta = typeof(a);
 				var tb = typeof(b);
 				if(ta==tb && ta=="number") return a-b;
