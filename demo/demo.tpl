@@ -10,8 +10,9 @@
 			<td><pre>__JSPRE__</pre></td>
 			<td>__HTML__</td>
 		</table>
-		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../src/jqCron.js"></script>
+		<script type="text/javascript" src="../src/jqCron.en.js"></script>
 		<script type="text/javascript">
 			__JS__
 		</script>

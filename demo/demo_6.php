@@ -39,7 +39,7 @@ $(function(){
 ==========
 <div class="example5"></div>
 <p style="margin-top:1em">
-    <a href="#" class="a5-enable">Enable</a>
-    <a href="#" class="a5-disable">Disable</a>
-    <a href="#" class="a5-toggle">Toggle</a>
+    <a href="#" class="a5-enable">Enable</a> 
+    <a href="#" class="a5-disable">Disable</a> 
+    <a href="#" class="a5-toggle">Toggle</a> 
 </p>

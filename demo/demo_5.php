@@ -13,10 +13,10 @@ echo strtr(file_get_contents('demo.tpl'),
 __halt_compiler();
 ==========
 $(function(){
-    $('.example4-selector').jqCron({
+    $('.example5-selector').jqCron({
         default_value: '30 2 1 * *',
         numeric_zero_pad: true,
-        bind_to: $('.example4-span'),
+        bind_to: $('.example5-span'),
         bind_method: {
             set: function($element, value) {
                 $element.html(value);
@@ -25,5 +25,5 @@ $(function(){
     });
 });
 ==========
-<div class="example4-selector"></div>
-<p><span class="example4-span"></span></p>
+<div class="example5-selector"></div>
+<p><span class="example5-span"></span></p>
