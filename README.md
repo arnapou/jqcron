@@ -12,4 +12,4 @@ Features
 * custom binding with dom element (can be two ways sync for instance with input)
 * lots of options (reset button, default value, ...)
 * php class to test matching dates
-* [Click here to see the live demo](https://github.com/arnapou/jqCron)
+* [Click here to see the live demo](http://arnapou.net/2012-07-jquery-cron/)
