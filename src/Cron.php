@@ -47,6 +47,7 @@
  */
 
 class Cron {
+
 	const TYPE_UNDEFINED = '';
 	const TYPE_MINUTE = 'minute';
 	const TYPE_HOUR = 'hour';
@@ -137,7 +138,7 @@ class Cron {
 	 * @param string $cron 
 	 */
 	public function __construct($cron = null) {
-		if ( !empty($cron) ) {
+		if (!empty($cron)) {
 			$this->setCron($cron);
 		}
 	}
@@ -147,14 +148,13 @@ class Cron {
 	 * @return string
 	 */
 	public function getCron() {
-		return implode(' ',
-				array(
-				$this->getCronMinutes(),
-				$this->getCronHours(),
-				$this->getCronDaysOfMonth(),
-				$this->getCronMonths(),
-				$this->getCronDaysOfWeek(),
-			));
+		return implode(' ', array(
+			$this->getCronMinutes(),
+			$this->getCronHours(),
+			$this->getCronDaysOfMonth(),
+			$this->getCronMonths(),
+			$this->getCronDaysOfWeek(),
+		));
 	}
 
 	/**
@@ -164,44 +164,44 @@ class Cron {
 	 */
 	public function getText($lang) {
 		// check lang
-		if ( !isset($this->texts[$lang]) ) {
+		if (!isset($this->texts[$lang])) {
 			return $this->getCron();
 		}
 		$texts = $this->texts[$lang];
 		// check type
 		$type = $this->getType();
-		if ( $type == self::TYPE_UNDEFINED ) {
+		if ($type == self::TYPE_UNDEFINED) {
 			return $this->getCron();
 		}
 		// init
 		$elements = array();
 		$elements[] = sprintf($texts['text_period'], $texts['name_' . $type]);
 		// hour
-		if ( in_array($type, array(self::TYPE_HOUR)) ) {
+		if (in_array($type, array(self::TYPE_HOUR))) {
 			$elements[] = sprintf($texts['text_mins'], $this->getCronMinutes());
 		}
 		// week
-		if ( in_array($type, array(self::TYPE_WEEK)) ) {
+		if (in_array($type, array(self::TYPE_WEEK))) {
 			$dow = $this->getCronDaysOfWeek();
-			foreach ( $texts['weekdays'] as $i => $wd ) {
+			foreach ($texts['weekdays'] as $i => $wd) {
 				$dow = str_replace((string) ($i + 1), $wd, $dow);
 			}
 			$elements[] = sprintf($texts['text_dow'], $dow);
 		}
 		// month + year
-		if ( in_array($type, array(self::TYPE_MONTH, self::TYPE_YEAR)) ) {
+		if (in_array($type, array(self::TYPE_MONTH, self::TYPE_YEAR))) {
 			$elements[] = sprintf($texts['text_dom'], $this->getCronDaysOfMonth());
 		}
 		// year
-		if ( in_array($type, array(self::TYPE_YEAR)) ) {
+		if (in_array($type, array(self::TYPE_YEAR))) {
 			$months = $this->getCronMonths();
-			for ( $i = count($texts['months']) - 1; $i >= 0; $i-- ) {
+			for ($i = count($texts['months']) - 1; $i >= 0; $i--) {
 				$months = str_replace((string) ($i + 1), $texts['months'][$i], $months);
 			}
 			$elements[] = sprintf($texts['text_month'], $months);
 		}
 		// day + week + month + year
-		if ( in_array($type, array(self::TYPE_DAY, self::TYPE_WEEK, self::TYPE_MONTH, self::TYPE_YEAR)) ) {
+		if (in_array($type, array(self::TYPE_DAY, self::TYPE_WEEK, self::TYPE_MONTH, self::TYPE_YEAR))) {
 			$elements[] = sprintf($texts['text_time'], $this->getCronHours(), $this->getCronMinutes());
 		}
 		return str_replace('*', $texts['empty'], implode(' ', $elements));
@@ -215,22 +215,22 @@ class Cron {
 		$mask = preg_replace('/[^\* ]/si', '-', $this->getCron());
 		$mask = preg_replace('/-+/si', '-', $mask);
 		$mask = preg_replace('/[^-\*]/si', '', $mask);
-		if ( $mask == '*****' ) {
+		if ($mask == '*****') {
 			return self::TYPE_MINUTE;
 		}
-		elseif ( $mask == '-****' ) {
+		elseif ($mask == '-****') {
 			return self::TYPE_HOUR;
 		}
-		elseif ( substr($mask, -3) == '***' ) {
+		elseif (substr($mask, -3) == '***') {
 			return self::TYPE_DAY;
 		}
-		elseif ( substr($mask, -3) == '-**' ) {
+		elseif (substr($mask, -3) == '-**') {
 			return self::TYPE_MONTH;
 		}
-		elseif ( substr($mask, -3) == '**-' ) {
+		elseif (substr($mask, -3) == '**-') {
 			return self::TYPE_WEEK;
 		}
-		elseif ( substr($mask, -2) == '-*' ) {
+		elseif (substr($mask, -2) == '-*') {
 			return self::TYPE_YEAR;
 		}
 		return self::TYPE_UNDEFINED;
@@ -247,7 +247,7 @@ class Cron {
 		$cron = preg_replace('/\s+/', ' ', $cron);
 		// explode
 		$elements = explode(' ', $cron);
-		if ( count($elements) != 5 ) {
+		if (count($elements) != 5) {
 			throw new Exception('Bad number of elements');
 		}
 		$this->cron = $cron;
@@ -400,13 +400,13 @@ class Cron {
 	 * @return DateTime 
 	 */
 	protected function parseDate($date, &$min, &$hour, &$day, &$month, &$weekday) {
-		if ( is_numeric($date) && intval($date) == $date ) {
+		if (is_numeric($date) && intval($date) == $date) {
 			$date = new \DateTime('@' . $date);
 		}
-		elseif ( is_string($date) ) {
+		elseif (is_string($date)) {
 			$date = new \DateTime('@' . strtotime($date));
 		}
-		if ( $date instanceof \DateTime ) {
+		if ($date instanceof \DateTime) {
 			$min = intval($date->format('i'));
 			$hour = intval($date->format('H'));
 			$day = intval($date->format('d'));
@@ -430,9 +430,7 @@ class Cron {
 			(empty($this->hours) || in_array($hour, $this->hours)) &&
 			(empty($this->dom) || in_array($day, $this->dom)) &&
 			(empty($this->months) || in_array($month, $this->months)) &&
-			(empty($this->dow) || in_array($weekday, $this->dow)
-			|| ($weekday == 0 && in_array(7, $this->dow))
-			|| ($weekday == 7 && in_array(0, $this->dow))
+			(empty($this->dow) || in_array($weekday, $this->dow) || ($weekday == 0 && in_array(7, $this->dow)) || ($weekday == 7 && in_array(0, $this->dow))
 			);
 	}
 
@@ -443,20 +441,20 @@ class Cron {
 	 * @param int $minuteAfter 
 	 */
 	public function matchWithMargin($date, $minuteBefore = 0, $minuteAfter = 0) {
-		if ( $minuteBefore > 0 ) {
+		if ($minuteBefore > 0) {
 			throw new Exception('MinuteBefore parameter cannot be positive !');
 		}
-		if ( $minuteAfter < 0 ) {
+		if ($minuteAfter < 0) {
 			throw new Exception('MinuteAfter parameter cannot be negative !');
 		}
 		$date = $this->parseDate($date, $min, $hour, $day, $month, $weekday);
 		$interval = new \DateInterval('PT1M'); // 1 min
-		if ( $minuteBefore != 0 ) {
+		if ($minuteBefore != 0) {
 			$date->sub(new \DateInterval('PT' . abs($minuteBefore) . 'M'));
 		}
 		$n = $minuteAfter - $minuteBefore + 1;
-		for ( $i = 0; $i < $n; $i++ ) {
-			if ( $this->matchExact($date) ) {
+		for ($i = 0; $i < $n; $i++) {
+			if ($this->matchExact($date)) {
 				return true;
 			}
 			$date->add($interval);
@@ -471,13 +469,13 @@ class Cron {
 	 */
 	protected function arrayToCron($array) {
 		$n = count($array);
-		if ( !is_array($array) || $n == 0 ) {
+		if (!is_array($array) || $n == 0) {
 			return '*';
 		}
 		$cron = array($array[0]);
 		$s = $c = $array[0];
-		for ( $i = 1; $i < $n; $i++ ) {
-			if ( $array[$i] == $c + 1 ) {
+		for ($i = 1; $i < $n; $i++) {
+			if ($array[$i] == $c + 1) {
 				$c = $array[$i];
 				$cron[count($cron) - 1] = $s . '-' . $c;
 			}
@@ -498,45 +496,45 @@ class Cron {
 	 */
 	protected function cronToArray($string, $min, $max) {
 		$array = array();
-		if ( is_array($string) ) {
-			foreach ( $string as $val ) {
-				if ( is_numeric($val) && intval($val) == $val && $val >= $min && $val <= $max ) {
+		if (is_array($string)) {
+			foreach ($string as $val) {
+				if (is_numeric($val) && intval($val) == $val && $val >= $min && $val <= $max) {
 					$array[] = intval($val);
 				}
 			}
 		}
-		else if ( $string !== '*' ) {
-			while ( $string != '' ) {
+		else if ($string !== '*') {
+			while ($string != '') {
 				// test "*/n" expression
-				if ( preg_match('/^\*\/([0-9]+),?/', $string, $m) ) {
-					for ( $i = max(0, $min); $i <= min(59, $max); $i+=$m[1] ) {
+				if (preg_match('/^\*\/([0-9]+),?/', $string, $m)) {
+					for ($i = max(0, $min); $i <= min(59, $max); $i+=$m[1]) {
 						$array[] = intval($i);
 					}
-					$string = str_replace($m[0], '', $string);
+					$string = substr($string, strlen($m[0]));
 					continue;
 				}
 				// test "a-b/n" expression
-				if ( preg_match('/^([0-9]+)-([0-9]+)\/([0-9]+),?/', $string, $m) ) {
-					for ( $i = max($m[1], $min); $i <= min($m[2], $max); $i+=$m[3] ) {
+				if (preg_match('/^([0-9]+)-([0-9]+)\/([0-9]+),?/', $string, $m)) {
+					for ($i = max($m[1], $min); $i <= min($m[2], $max); $i+=$m[3]) {
 						$array[] = intval($i);
 					}
-					$string = str_replace($m[0], '', $string);
+					$string = substr($string, strlen($m[0]));
 					continue;
 				}
 				// test "a-b" expression
-				if ( preg_match('/^([0-9]+)-([0-9]+),?/', $string, $m) ) {
-					for ( $i = max($m[1], $min); $i <= min($m[2], $max); $i++ ) {
+				if (preg_match('/^([0-9]+)-([0-9]+),?/', $string, $m)) {
+					for ($i = max($m[1], $min); $i <= min($m[2], $max); $i++) {
 						$array[] = intval($i);
 					}
-					$string = str_replace($m[0], '', $string);
+					$string = substr($string, strlen($m[0]));
 					continue;
 				}
 				// test "c" expression
-				if ( preg_match('/^([0-9]+),?/', $string, $m) ) {
-					if ( $m[1] >= $min && $m[1] <= $max ) {
+				if (preg_match('/^([0-9]+),?/', $string, $m)) {
+					if ($m[1] >= $min && $m[1] <= $max) {
 						$array[] = intval($m[1]);
 					}
-					$string = str_replace($m[0], '', $string);
+					$string = substr($string, strlen($m[0]));
 					continue;
 				}
 				// something goes wrong in the expression
