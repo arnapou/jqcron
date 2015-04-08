@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-jqCronDefaultSettings.texts.en = {
+jqCronDefaultSettings.texts.pl = {
 	empty: 'co minutę',
 	empty_minutes: 'każdej minucie',
 	empty_time_hours: 'każdej godzinie',
@@ -27,8 +27,8 @@ jqCronDefaultSettings.texts.en = {
 	text_dow: ' w <b />',
 	text_month: '  <b />',
 	text_dom: '  <b />',
-	error1: 'Ten tag %s nie jest obsługiwany !',
-	error2: 'Błedna ilość elementów',
+	error1: 'Ten tag %s nie jest obsługiwany!',
+	error2: 'Błędna liczba elementów',
 	error3: 'Element jquery_element powinien być ustawiony w jqCron settings',
 	error4: 'Nierozpoznane wyrażenie',
 	weekdays: ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela'],
