@@ -9,7 +9,7 @@
 
 jqCronDefaultSettings.texts.es = {
 	empty: 'todo(a)',
-	empty_minutes: 'todo',
+	empty_minutes: 'todo(a)',
 	empty_time_hours: 'toda hora',
 	empty_time_minutes: 'todo minuto',
 	empty_day_of_week: 'todo dia de la semana',
