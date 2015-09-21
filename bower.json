@@ -1,0 +1,20 @@
+{
+  "name": "jqcron",
+  "version": "0.0.0",
+  "authors": [
+    "Arnaud Buathier <arnaud@arnapou.net>"
+  ],
+  "description": "Cron jQuery plugin",
+  "license": "MIT",
+  "homepage": "https://github.com/arnapou/jqcron",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
