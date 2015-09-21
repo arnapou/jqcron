@@ -8,12 +8,12 @@
  */
 
 jqCronDefaultSettings.texts.es = {
-	empty: 'todo(a)',
-	empty_minutes: 'todo(a)',
+	empty: 'todo',
+	empty_minutes: 'todo',
 	empty_time_hours: 'toda hora',
 	empty_time_minutes: 'todo minuto',
-	empty_day_of_week: 'todo dia de la semana',
-	empty_day_of_month: 'todo dia del mes',
+	empty_day_of_week: 'todo día de la semana',
+	empty_day_of_month: 'todo día del mes',
 	empty_month: 'todo mes',
 	name_minute: 'minuto',
 	name_hour: 'hora',
@@ -21,9 +21,9 @@ jqCronDefaultSettings.texts.es = {
 	name_week: 'semana',
 	name_month: 'mes',
 	name_year: 'año',
-	text_period: 'Todo <b />',
+	text_period: 'Todo(a) <b />',
 	text_mins: ' al <b /> minuto(s) de la hora',
-	text_time: ' al <b />:<b />',
+	text_time: ' a las <b />:<b />',
 	text_dow: ' en <b />',
 	text_month: ' de <b />',
 	text_dom: ' en <b />',
