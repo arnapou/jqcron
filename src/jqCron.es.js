@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-jqCronDefaultSettings.texts.en = {
+jqCronDefaultSettings.texts.es = {
 	empty: 'todo',
 	empty_minutes: 'todo',
 	empty_time_hours: 'toda hora',
