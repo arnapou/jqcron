@@ -8,16 +8,16 @@
  */
 
 jqCronDefaultSettings.texts.es = {
-	empty: 'todo',
+	empty: 'todo(a)',
 	empty_minutes: 'todo',
 	empty_time_hours: 'toda hora',
-	empty_time_minutes: 'todo minute',
+	empty_time_minutes: 'todo minuto',
 	empty_day_of_week: 'todo dia de la semana',
 	empty_day_of_month: 'todo dia del mes',
 	empty_month: 'todo mes',
 	name_minute: 'minuto',
 	name_hour: 'hora',
-	name_day: 'dia',
+	name_day: 'día',
 	name_week: 'semana',
 	name_month: 'mes',
 	name_year: 'año',
