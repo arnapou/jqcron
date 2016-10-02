@@ -14,6 +14,7 @@ var jqCronDefaultSettings = {
 	texts: {},
 	monthdays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
 	hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+	hour_labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
 	minutes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59],
 	lang: 'en',
 	enabled_minute: false,
@@ -439,8 +440,8 @@ var jqCronDefaultSettings = {
 			// TIME  (hour:min)
 			_$blockTIME.append(_self.getText('text_time'));
 			_selectorTimeH = newSelector(_$blockTIME, settings.multiple_time_hours, 'time_hours');
-			for(i=0, list=settings.hours; i<list.length; i++){
-				_selectorTimeH.add(list[i], list[i]);
+			for(i=0, list=settings.hours, labelsList=settings.hour_labels; i<list.length; i++){
+				_selectorTimeH.add(list[i], labelsList[i]);
 			}
 			_selectorTimeM = newSelector(_$blockTIME, settings.multiple_time_minutes, 'time_minutes');
 			for(i=0, list=settings.minutes; i<list.length; i++){
