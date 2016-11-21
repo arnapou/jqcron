@@ -7,6 +7,7 @@ echo strtr(file_get_contents('demo.tpl'),
 	'__JS__' => $elements[1],
 	'__JSPRE__' => htmlspecialchars($elements[1]),
 	'__HTML__' => $elements[2],
+	'__HTMLPRE__' => htmlspecialchars($elements[2]),
 	)
 );
 

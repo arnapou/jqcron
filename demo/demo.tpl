@@ -1,20 +1,12 @@
-<html>
-	<head>
-		<title>__DEMO__</title>
-		<link rel="stylesheet" type="text/css" href="reset.css" />
-		<link rel="stylesheet" type="text/css" href="demo.css" />
-		<link rel="stylesheet" type="text/css" href="../src/jqCron.css" />
-	</head>
-	<body>
-		<table>
-			<td><pre>__JSPRE__</pre></td>
-			<td>__HTML__</td>
-		</table>
-		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="../src/jqCron.js"></script>
-		<script type="text/javascript" src="../src/jqCron.en.js"></script>
-		<script type="text/javascript">
-			__JS__
-		</script>
-	</body>
-</html>
+<div class="row">
+    <div class="col-lg-6">
+        <pre>__JSPRE__</pre>
+        <pre>__HTMLPRE__</pre>
+    </div>
+    <div class="col-lg-6">
+        __HTML__
+    </div>
+</div>
+<script type="text/javascript">
+    __JS__
+</script>

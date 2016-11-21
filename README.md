@@ -5,6 +5,8 @@ Cron jQuery plugin
 
 Originaly created in july 2012.
 
+Live demo there : http://jqcron.arnapou.net/
+
 Features
 ========
 * multi select
