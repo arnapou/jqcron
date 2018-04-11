@@ -321,15 +321,15 @@ var jqCronDefaultSettings = {
 
 		// get the human readable text
 		this.getHumanText = function() {
-		    var texts=[];
-		    _$obj
-		    .find('> span > span:visible')
-		    .find('.jqCron-text, .jqCron-selector > span')
-		    .each(function() {
-		        var text = $(this).text().replace(/\s+$/g, '').replace(/^\s+/g, '');
-		        text && texts.push(text);
-		    });
-		    return texts.join(' ').replace(/\s:\s/g, ':');
+				var texts=[];
+				_$obj
+				.find('> span > span:visible')
+				.find('.jqCron-text, .jqCron-selector > span')
+				.each(function() {
+						var text = $(this).text().replace(/\s+$/g, '').replace(/^\s+/g, '');
+						text && texts.push(text);
+				});
+				return texts.join(' ').replace(/\s:\s/g, ':');
 		}
 
 		// get settings
@@ -375,8 +375,16 @@ var jqCronDefaultSettings = {
 			settings.no_reset_button || _$obj.append(_$cross);
 			(!settings.disable) || _$obj.addClass('disable');
 			_$blocks.append(_$blockPERIOD);
-			_$blocks.append(_$blockDOM);
-			_$blocks.append(_$blockMONTH);
+
+			if ( /^(ko)$/i.test(settings.lang) )
+			{
+				_$blocks.append(_$blockMONTH, _$blockDOM);
+			}
+			else
+			{
+				_$blocks.append(_$blockDOM, _$blockMONTH);
+			}
+
 			_$blocks.append(_$blockMINS);
 			_$blocks.append(_$blockDOW);
 			_$blocks.append(_$blockTIME);
