@@ -542,19 +542,19 @@ var jqCronDefaultSettings = {
 			switch (_type) {
 				case 'minutes': 
 				case 'time_minutes':
-					total = 60;
+					total = 60 - this.itemStartAt();
 					break;
 				case 'time_hours':
-					total = 24;
+					total = 24 - this.itemStartAt();
 					break;
 				case 'day_of_month':
-					total = 31;
+					total = 31 - this.itemStartAt();
 					break;
 				case 'month': 
-					total = 12;
+					total = 12 - this.itemStartAt();
 					break;
 				case 'day_of_week':
-					total = 7;
+					total = 7 - this.itemStartAt();
 					break;
 			}
 
@@ -774,7 +774,8 @@ var jqCronDefaultSettings = {
 			if (cron.length > 1) {
 				var multiple = cron[0] === "0" ? +cron[1] : +cron[0];
 				var total = this.getTotalItem(multiple);
-				
+				console.log(_type, total, cron.length, _self.multipleOf)
+
 				if (total === cron.length) {
 					var valid = true;
 					var counter = 0;
