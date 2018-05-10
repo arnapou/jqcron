@@ -48,6 +48,7 @@
 	position: absolute;
 	top: 1.5em;
 	z-index: 1;
+	user-select: none;
 }
 .jqCron-selector-list li {
 	-webkit-box-sizing: border-box;

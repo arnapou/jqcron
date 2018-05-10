@@ -15,6 +15,7 @@ $pages = array(
     'demo_4'        => 'Demo 4',
     'demo_5'        => 'Demo 5',
     'demo_6'        => 'Demo 6',
+    'demo_7'        => 'Demo 7',
 );
 
 if (isset($_GET['page']) && in_array($_GET['page'], array_keys($pages), true)) {

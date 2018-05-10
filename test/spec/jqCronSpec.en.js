@@ -64,5 +64,14 @@ describe("#Player", function() {
         expect($('#cronexp').jqCronGetInstance().getHumanText()).toEqual(cronHumanTextInEnglish);
     });
 
+    it("should translate every year schedule correctly", function () {
+        var cronExp = "*/14 */2 * * *";
+        var cronHumanTextInEnglish = "Every day at every 2:every 14";
+
+        $('#cronexp').jqCronGetInstance().setCron(cronExp);
+
+        expect($('#cronexp').jqCronGetInstance().getHumanText()).toEqual(cronHumanTextInEnglish);
+    });
+
 
 });
