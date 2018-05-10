@@ -251,7 +251,7 @@ var jqCronDefaultSettings = {
 			if(!str) return;
 			try {
 				str = str.replace(/\s+/g, ' ').replace(/^ +/, '').replace(/ +$/, ''); // sanitize
-				var mask = str.replace(/[^\* ]/g, '-').replace(/-+/g, '-').replace(/ +/g, '');
+				var mask = str.replace(/\*\//g, '').replace(/[^\* ]/g, '-').replace(/-+/g, '-').replace(/ +/g, '');
 				var items = str.split(' ');
 				if (items.length != 5) _self.error(_self.getText('error2'));
 				if(mask == '*****') {						// 1 possibility
@@ -537,6 +537,53 @@ var jqCronDefaultSettings = {
 			return a;
 		}
 
+		this.getTotalItem = function(multiple){
+			var total = 0;
+			switch (_type) {
+				case 'minutes': 
+				case 'time_minutes':
+					total = 60;
+					break;
+				case 'time_hours':
+					total = 24;
+					break;
+				case 'day_of_month':
+					total = 31;
+					break;
+				case 'month': 
+					total = 12;
+					break;
+				case 'day_of_week':
+					total = 7;
+					break;
+			}
+
+			if (multiple) {
+				var lastMultiple = 0;
+				for (var i = 0; i < total; i++) {
+					if (i % multiple !== 0) continue;
+					lastMultiple = i;
+				}
+				return (lastMultiple / multiple) + 1
+			}
+			return total;
+		}
+
+		this.itemStartAt = function(){
+			switch (_type) {
+				case 'minutes': 
+				case 'time_minutes': 
+				case 'time_hours': 
+					return 0;
+				case 'day_of_month': 
+					return 1;
+				case 'month': 
+					return 1;
+				case 'day_of_week': 
+					return 1;
+			}
+		}
+
 		// get the value (an array if multiple, else a single value)
 		this.getValue = function(){
 			return _multiple ? _value : _value[0];
@@ -546,7 +593,7 @@ var jqCronDefaultSettings = {
 		this.getCronValue = function(){
 			if(_value.length == 0) return '*';
 			var cron = [_value[0]], i, s = _value[0], c = _value[0], n = _value.length;
-			for(i=1; i<n; i++) {
+			for(var i=1; i<n; i++) {
 				if(_value[i] == c+1) {
 					c = _value[i];
 					cron[cron.length-1] = s+'-'+c;
@@ -556,6 +603,30 @@ var jqCronDefaultSettings = {
 					cron.push(c);
 				}
 			}
+
+			if (cron.length > 1) {
+				var multiple = cron[0] === 0 ? cron[1] : cron[0];
+				var total = this.getTotalItem(multiple);
+				
+				if (total === cron.length) {
+					var valid = true;
+					var counter = 0;
+
+					for(var i=1; i<cron.length; i++) {
+						counter += multiple;
+						if (cron[i] % multiple !== 0 || multiple*i !== counter) {
+							valid = false;
+							break;
+						}
+					}
+
+					if (valid) {
+						_self.multipleOf = multiple;
+						return '*/' + multiple;
+					}
+				}
+			}
+
 			return cron.join(',');
 		};
 
@@ -655,6 +726,7 @@ var jqCronDefaultSettings = {
 				if(ta==tb && ta=="number") return a-b;
 				else return String(a) == String(b) ? 0 : (String(a) < String(b) ? -1 : 1);
 			});
+
 			if(_multiple) {
 				for(i=0; i<keys.length; i++){
 					if(keys[i] in _values) {
@@ -698,6 +770,29 @@ var jqCronDefaultSettings = {
 					cron.push(getValueText(c));
 				}
 			}
+
+			if (cron.length > 1) {
+				var multiple = cron[0] === "0" ? +cron[1] : +cron[0];
+				var total = this.getTotalItem(multiple);
+				
+				if (total === cron.length) {
+					var valid = true;
+					var counter = 0;
+
+					for(i=1; i<cron.length; i++) {
+						counter += multiple;
+						if (+cron[i] % multiple !== 0 || multiple*i !== counter) {
+							valid = false;
+							break;
+						}
+					}
+
+					if (valid) {
+						return 'every ' + multiple;
+					}
+				}
+			}
+
 			return cron.join(',');
 		};
 
@@ -717,14 +812,51 @@ var jqCronDefaultSettings = {
 			var $item = $('<li>' + value + '</li>');
 			_$list.append($item);
 			_values[key] = $item;
-			$item.click(function(){
-				if(_multiple && $(this).hasClass('selected')) {
-					_self.removeValue(key);
-				}
-				else {
-					_self.addValue(key);
-					if(!_multiple) _self.close();
-				}
+
+			var DELAY = 200, clicks = 0, timer = null;
+			var total = this.getTotalItem();
+			var startAt = this.itemStartAt();
+			$item.click(function(e) {
+		 		clicks++;
+	 			var $this = $(this)
+		        if(clicks === 1) {
+		        	// SINGLE CLICK
+		            timer = setTimeout(function() {
+		                if(_multiple && $this.hasClass('selected')) {
+							_self.removeValue(key);
+						}
+						else {
+							_self.addValue(key);
+							if(!_multiple) _self.close();
+						}
+		                clicks = 0;
+		            }, DELAY);
+		        } else {
+		        	var multiple = +value;
+		        	var itemValues = [];
+		        	var list = []
+		        	for (var i = startAt; i < total; i++) {
+
+						_self.removeValue(i);
+	        			if (i % multiple === 0 && _self.multipleOf !== multiple) {
+	        				itemValues.push(i);
+	        			}
+		        	}
+
+	        		if (_self.multipleOf !== multiple) {
+						_self.multipleOf = multiple
+						for(i=0; i<itemValues.length; i++){
+							_self.addValue(itemValues[i]);
+						}
+	        		} else {
+	        			_self.multipleOf = null;
+	        		}
+
+		            clearTimeout(timer);    //prevent single-click action
+		            clicks = 0;             //after action performed, reset counter
+		        }
+			}).dblclick(function(e) {
+				e.preventDefault();
 			});
 		};
 
