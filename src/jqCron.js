@@ -843,7 +843,7 @@ var jqCronDefaultSettings = {
 						}
 		                clicks = 0;
 		            }, DELAY);
-		        } else {
+		        } else if(_multiple) {
 		        	var multiple = +value;
 		        	var itemValues = [];
 		        	var list = [];
