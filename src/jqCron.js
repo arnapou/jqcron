@@ -785,7 +785,7 @@ var jqCronDefaultSettings = {
 			if (cron.length > 1) {
 				var multiple = cron[0] === "0" ? +cron[1] : +cron[0];
 				var total = this.getTotalItem(multiple);
-				console.log(_type, total, cron.length, _self.multipleOf)
+				console && console.log(_type, total, cron.length, _self.multipleOf);
 
 				if (total === cron.length) {
 					var valid = true;
