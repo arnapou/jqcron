@@ -14,8 +14,12 @@ var jqCronDefaultSettings = {
 	texts: {},
 	monthdays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
 	hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-	hour_labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
 	minutes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59],
+	// Optional, use labels if you want to customize hours and/or minutes.
+	// By default integers of each list will be converted into strings.
+	// monthday_labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+	// hour_labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
+	// minute_labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"],
 	lang: 'en',
 	enabled_minute: false,
 	enabled_hour: true,
@@ -371,6 +375,9 @@ var jqCronDefaultSettings = {
 			// (there was typo bug for several year and I don't want to break legacy code)
 			if('disable' in settings && !settings.disabled) settings.disabled = settings.disable;
 
+			if(!('hour_labels' in settings)) settings.hour_labels = settings.hours.map(function(x) { return String(x); });
+			if(!('minute_labels' in settings)) settings.minute_labels = settings.minutes.map(function(x) { return String(x); });
+			if(!('monthday_labels' in settings)) settings.monthday_labels = settings.monthdays.map(function(x) { return String(x); });
 
 			settings.jquery_element || _self.error(_self.getText('error3'));
 			_$elt = settings.jquery_element;
@@ -458,8 +465,8 @@ var jqCronDefaultSettings = {
 				_selectorTimeH.add(list[i], labelsList[i]);
 			}
 			_selectorTimeM = newSelector(_$blockTIME, settings.multiple_time_minutes, 'time_minutes');
-			for(i=0, list=settings.minutes; i<list.length; i++){
-				_selectorTimeM.add(list[i], list[i]);
+			for(i=0, list=settings.minutes, labelsList=settings.minute_labels; i<list.length; i++){
+				_selectorTimeM.add(list[i], labelsList[i]);
 			}
 
 			// DOW  (day of week)
@@ -472,8 +479,8 @@ var jqCronDefaultSettings = {
 			// DOM  (day of month)
 			_$blockDOM.append(_self.getText('text_dom'));
 			_selectorDom = newSelector(_$blockDOM, settings.multiple_dom, 'day_of_month');
-			for(i=0, list=settings.monthdays; i<list.length; i++){
-				_selectorDom.add(list[i], list[i]);
+			for(i=0, list=settings.monthdays, labelsList=settings.monthday_labels; i<list.length; i++){
+				_selectorDom.add(list[i], labelsList[i]);
 			}
 
 			// MONTH  (day of week)
