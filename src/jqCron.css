@@ -48,6 +48,9 @@
 	position: absolute;
 	top: 1.5em;
 	z-index: 1;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 }
 .jqCron-selector-list li {
