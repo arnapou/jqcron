@@ -311,7 +311,7 @@ var jqCronDefaultSettings = {
 		// get the main element id
 		this.getId = function(){
 			return _$elt.attr('id');
-		}
+		};
 
 		// get the translated text
 		this.getText = function(key) {
@@ -334,7 +334,7 @@ var jqCronDefaultSettings = {
 						text && texts.push(text);
 				});
 				return texts.join(' ').replace(/\s:\s/g, ':');
-		}
+		};
 
 		// get settings
 		this.getSettings = function(){
@@ -389,12 +389,10 @@ var jqCronDefaultSettings = {
 			(!settings.disabled) || _$obj.addClass('disable');
 			_$blocks.append(_$blockPERIOD);
 
-			if ( /^(ko)$/i.test(settings.lang) )
-			{
+			if ( /^(ko)$/i.test(settings.lang) ) {
 				_$blocks.append(_$blockMONTH, _$blockDOM);
 			}
-			else
-			{
+			else {
 				_$blocks.append(_$blockDOM, _$blockMONTH);
 			}
 
@@ -580,7 +578,7 @@ var jqCronDefaultSettings = {
 				return (lastMultiple / multiple) + 1
 			}
 			return total;
-		}
+		};
 
 		this.itemStartAt = function(){
 			switch (_type) {
@@ -595,7 +593,7 @@ var jqCronDefaultSettings = {
 				case 'day_of_week': 
 					return 1;
 			}
-		}
+		};
 
 		// get the value (an array if multiple, else a single value)
 		this.getValue = function(){
@@ -832,7 +830,7 @@ var jqCronDefaultSettings = {
 			var startAt = this.itemStartAt();
 			$item.click(function(e) {
 		 		clicks++;
-	 			var $this = $(this)
+	 			var $this = $(this);
 		        if(clicks === 1) {
 		        	// SINGLE CLICK
 		            timer = setTimeout(function() {
@@ -848,7 +846,7 @@ var jqCronDefaultSettings = {
 		        } else {
 		        	var multiple = +value;
 		        	var itemValues = [];
-		        	var list = []
+		        	var list = [];
 		        	for (var i = startAt; i < total; i++) {
 
 						_self.removeValue(i);
@@ -858,7 +856,7 @@ var jqCronDefaultSettings = {
 		        	}
 
 	        		if (_self.multipleOf !== multiple) {
-						_self.multipleOf = multiple
+						_self.multipleOf = multiple;
 						for(i=0; i<itemValues.length; i++){
 							_self.addValue(itemValues[i]);
 						}
@@ -946,62 +944,17 @@ var jqCronDefaultSettings = {
 	$.extend($.expr[':'], {
 		container: function(a) {
 			return (a.tagName+'').toLowerCase() in {
-				a:1,
-				abbr:1,
-				acronym:1,
-				address:1,
-				b:1,
-				big:1,
-				blockquote:1,
-				button:1,
-				cite:1,
-				code:1,
-				dd: 1,
-				del:1,
-				dfn:1,
-				div:1,
-				dt:1,
-				em:1,
-				fieldset:1,
-				form:1,
-				h1:1,
-				h2:1,
-				h3:1,
-				h4:1,
-				h5:1,
-				h6: 1,
-				i:1,
-				ins:1,
-				kbd:1,
-				label:1,
-				li:1,
-				p:1,
-				pre:1,
-				q:1,
-				samp:1,
-				small:1,
-				span:1,
-				strong:1,
-				sub: 1,
-				sup:1,
-				td:1,
-				tt:1
+				a:1, abbr:1, acronym:1, address:1, b:1, big:1, blockquote:1, button:1,
+				cite:1, code:1, dd: 1, del:1, dfn:1, div:1, dt:1,
+				em:1, fieldset:1, form:1, h1:1, h2:1, h3:1, h4:1, h5:1, h6: 1,
+				i:1, ins:1, kbd:1, label:1, li:1, p:1, pre:1, q:1,
+				samp:1, small:1, span:1, strong:1, sub: 1, sup:1, td:1, tt:1
 			};
 		},
 		autoclose: function(a) {
 			return (a.tagName+'').toLowerCase() in {
-				area:1,
-				base:1,
-				basefont:1,
-				br:1,
-				col:1,
-				frame:1,
-				hr:1,
-				img:1,
-				input:1,
-				link:1,
-				meta:1,
-				param:1
+				area:1, base:1, basefont:1, br:1, col:1, frame:1, hr:1,
+				img:1, input:1, link:1, meta:1, param:1
 			};
 		}
 	});
