@@ -208,19 +208,19 @@ var jqCronDefaultSettings = {
 		// disable the selector
 		this.disable = function(){
 			_$obj.addClass('disable');
-			settings.disable = true;
+			settings.disabled = true;
 			_self.closeSelectors();
 		};
 
 		// return if the selector is disabled
 		this.isDisabled = function() {
-			return settings.disable == true;
+			return settings.disabled == true;
 		};
 
 		// enable the selector
 		this.enable = function(){
 			_$obj.removeClass('disable');
-			settings.disable = false;
+			settings.disabled = false;
 		};
 
 		// get cron value
@@ -366,6 +366,12 @@ var jqCronDefaultSettings = {
 			if(_initialized) return;
 
 			settings = jqCronMergeSettings(settings);
+
+			// copy 'disable' into 'disabled' if it exists
+			// (there was typo bug for several year and I don't want to break legacy code)
+			if('disable' in settings && !settings.disabled) settings.disabled = settings.disable;
+
+
 			settings.jquery_element || _self.error(_self.getText('error3'));
 			_$elt = settings.jquery_element;
 			_$elt.append(_$obj);
@@ -373,7 +379,7 @@ var jqCronDefaultSettings = {
 			_$obj.data('jqCron', _self);
 			_$obj.append(_$blocks);
 			settings.no_reset_button || _$obj.append(_$cross);
-			(!settings.disable) || _$obj.addClass('disable');
+			(!settings.disabled) || _$obj.addClass('disable');
 			_$blocks.append(_$blockPERIOD);
 
 			if ( /^(ko)$/i.test(settings.lang) )
