@@ -25,6 +25,7 @@ $(function(){
         default_period: 'week',
         default_value: '15 10-12 * * 1-5',
         no_reset_button: false,
+        numeric_zero_pad: true,
         lang: 'en'
     });
 });
