@@ -1,6 +1,7 @@
 {
 	"name": "arnapou/jqcron",
 	"description": "Arnapou jqCron",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Arnaud Buathier",
