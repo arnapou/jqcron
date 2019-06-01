@@ -5,7 +5,7 @@ Cron jQuery plugin
 
 Originaly created in july 2012.
 
-Live demo there : http://jqcron.arnapou.net/
+Live demo there : [jqcron.arnapou.net](http://jqcron.arnapou.net/)
 
 Features
 ========
@@ -14,4 +14,3 @@ Features
 * custom binding with dom element (can be two ways sync for instance with input)
 * lots of options (reset button, default value, ...)
 * php class to test matching dates
-
