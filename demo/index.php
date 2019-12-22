@@ -31,10 +31,10 @@ if (!isset($current)) {
 <html>
     <head>
         <title>jqCron</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
         <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="//stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="../src/jqCron.js"></script>
         <script src="../src/jqCron.en.js"></script>
         <link rel="stylesheet" href="../src/jqCron.css">
