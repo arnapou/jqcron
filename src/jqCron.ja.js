@@ -4,7 +4,7 @@
 	other mode for jqCron reads naturally. */
 
 jqCronDefaultSettings.texts.ja = {
-	empty: '毎。。',
+	empty: '毎',
 	empty_minutes: '毎',
 	empty_time_hours: '毎',
 	empty_time_minutes: '毎',
@@ -27,6 +27,6 @@ jqCronDefaultSettings.texts.ja = {
 	error2: 'Bad number of elements',
 	error3: 'The jquery_element should be set into jqCron settings',
 	error4: 'Unrecognized expression',
-	weekdays: ['月', '火', '水', '木', '金', '土', '月'],
+	weekdays: ['月', '火', '水', '木', '金', '土', '日'],
 	months: ['１', '２', '３', '４', '５', '６', '７', '８', '９', '１０', '１１', '１２']
 };
