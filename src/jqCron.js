@@ -49,12 +49,12 @@ var jqCronDefaultSettings = {
 	}
 };
 
-/**
- * Custom extend of json for jqCron settings.
- * We don't use jQuery.extend because simple extend does not fit our needs, and deep extend has a bad
- * feature for us : it replaces keys of "Arrays" instead of replacing the full array.
- */
 (function($){
+	/**
+	 * Custom extend of json for jqCron settings.
+	 * We don't use jQuery.extend because simple extend does not fit our needs, and deep extend has a bad
+	 * feature for us : it replaces keys of "Arrays" instead of replacing the full array.
+	 */
 	var extend = function(dst, src) {
 		for(var i in src) {
 			if($.isPlainObject(src[i])) {
@@ -72,21 +72,17 @@ var jqCronDefaultSettings = {
 	this.jqCronMergeSettings = function(obj) {
 		return extend(extend({}, jqCronDefaultSettings), obj || {});
 	};
-}).call(this, jQuery);
 
-/**
- * Shortcut to get the instance of jqCron instance from one jquery object
- */
-(function($){
+	/**
+	 * Shortcut to get the instance of jqCron instance from one jquery object
+	 */
 	$.fn.jqCronGetInstance = function() {
 		return this.data('jqCron');
 	};
-}).call(this, jQuery);
 
-/**
- * Main plugin
- */
-(function($){
+	/**
+	 * Main plugin
+	 */
 	$.fn.jqCron = function(settings) {
 		var saved_settings = settings;
 		return this.each(function() {
@@ -146,12 +142,10 @@ var jqCronDefaultSettings = {
 			$(this).data('jqCron', cron);
 		});
 	};
-}).call(this, jQuery);
 
-/**
- * jqCron class
- */
-(function($){
+	/**
+	 * jqCron class
+	 */
 	var jqCronInstances = [];
 
 	function jqCron(settings) {
@@ -521,13 +515,10 @@ var jqCronDefaultSettings = {
 		} catch(e){}
 	}
 	this.jqCron = jqCron;
-}).call(this, jQuery);
 
-
-/**
- * jqCronSelector class
- */
-(function($){
+	/**
+	 * jqCronSelector class
+	 */
 	function jqCronSelector(_cron, _$block, _multiple, _type){
 		var _self      = this;
 		var _$list     = $('<ul class="jqCron-selector-list"></ul>');
@@ -551,7 +542,7 @@ var jqCronDefaultSettings = {
 		this.getTotalItem = function(multiple){
 			var total = 0;
 			switch (_type) {
-				case 'minutes': 
+				case 'minutes':
 				case 'time_minutes':
 					total = 60 - this.itemStartAt();
 					break;
@@ -561,7 +552,7 @@ var jqCronDefaultSettings = {
 				case 'day_of_month':
 					total = 31 - this.itemStartAt();
 					break;
-				case 'month': 
+				case 'month':
 					total = 12 - this.itemStartAt();
 					break;
 				case 'day_of_week':
@@ -582,15 +573,13 @@ var jqCronDefaultSettings = {
 
 		this.itemStartAt = function(){
 			switch (_type) {
-				case 'minutes': 
-				case 'time_minutes': 
-				case 'time_hours': 
+				case 'minutes':
+				case 'time_minutes':
+				case 'time_hours':
 					return 0;
-				case 'day_of_month': 
-					return 1;
-				case 'month': 
-					return 1;
-				case 'day_of_week': 
+				case 'day_of_month':
+				case 'month':
+				case 'day_of_week':
 					return 1;
 			}
 		};
@@ -618,7 +607,7 @@ var jqCronDefaultSettings = {
 			if (cron.length > 1) {
 				var multiple = cron[0] === 0 ? cron[1] : cron[0];
 				var total = this.getTotalItem(multiple);
-				
+
 				if (total === cron.length) {
 					var valid = true;
 					var counter = 0;
@@ -831,42 +820,42 @@ var jqCronDefaultSettings = {
 			$item.click(function(e) {
 		 		clicks++;
 	 			var $this = $(this);
-		        if(clicks === 1) {
-		        	// SINGLE CLICK
-		            timer = setTimeout(function() {
-		                if(_multiple && $this.hasClass('selected')) {
+				if(clicks === 1) {
+					// SINGLE CLICK
+					timer = setTimeout(function() {
+						if(_multiple && $this.hasClass('selected')) {
 							_self.removeValue(key);
 						}
 						else {
 							_self.addValue(key);
 							if(!_multiple) _self.close();
 						}
-		                clicks = 0;
-		            }, DELAY);
-		        } else if(_multiple) {
-		        	var multiple = +value;
-		        	var itemValues = [];
-		        	var list = [];
-		        	for (var i = startAt; i < total; i++) {
+						clicks = 0;
+					}, DELAY);
+				} else if(_multiple) {
+					var multiple = +value;
+					var itemValues = [];
+					var list = [];
+					for (var i = startAt; i < total; i++) {
 
 						_self.removeValue(i);
-	        			if (i % multiple === 0 && _self.multipleOf !== multiple) {
-	        				itemValues.push(i);
-	        			}
-		        	}
+						if (i % multiple === 0 && _self.multipleOf !== multiple) {
+							itemValues.push(i);
+						}
+					}
 
-	        		if (_self.multipleOf !== multiple) {
+					if (_self.multipleOf !== multiple) {
 						_self.multipleOf = multiple;
 						for(i=0; i<itemValues.length; i++){
 							_self.addValue(itemValues[i]);
 						}
-	        		} else {
-	        			_self.multipleOf = null;
-	        		}
+					} else {
+						_self.multipleOf = null;
+					}
 
-		            clearTimeout(timer);    //prevent single-click action
-		            clicks = 0;             //after action performed, reset counter
-		        }
+					clearTimeout(timer);	//prevent single-click action
+					clicks = 0;			 //after action performed, reset counter
+				}
 			}).dblclick(function(e) {
 				e.preventDefault();
 			});
@@ -911,13 +900,11 @@ var jqCronDefaultSettings = {
 		_self.clear();
 	}
 	this.jqCronSelector = jqCronSelector;
-}).call(this, jQuery);
 
-/**
- * Generate unique id for each element.
- * Skip elements which have already an id.
- */
-(function($){
+	/**
+	 * Generate unique id for each element.
+	 * Skip elements which have already an id.
+	 */
 	var jqUID = 0;
 	var jqGetUID = function(prefix){
 		var id;
@@ -934,13 +921,10 @@ var jqCronDefaultSettings = {
 			$(this).attr('id', id);
 		});
 	};
-}).call(this, jQuery);
 
-
-/**
- * Extends jQuery selectors with new block selector
- */
-(function($){
+	/**
+	 * Extends jQuery selectors with new block selector
+	 */
 	$.extend($.expr[':'], {
 		container: function(a) {
 			return (a.tagName+'').toLowerCase() in {
