@@ -1,4 +1,6 @@
 .idea
-nbproject
+.phpunit*.cache
+composer.lock
 githubhook.log
-
+phpunit*.phar
+vendor

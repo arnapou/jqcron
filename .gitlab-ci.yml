@@ -1,0 +1,43 @@
+
+stages:
+  - test
+
+
+.job-test: &job-test
+  stage: test
+  only:
+    - master
+  before_script:
+    - php .gitlab-ci.php
+  script:
+    - php composer.phar install --no-interaction --optimize-autoloader
+    - php phpunit.phar
+  cache:
+    key: "$CI_COMMIT_REF_SLUG:$CI_JOB_NAME"
+    paths:
+      - vendor
+
+
+test:php-5.6:
+  <<: *job-test
+  image: 'edbizarro/gitlab-ci-pipeline-php:5.6'
+
+test:php-7.0:
+  <<: *job-test
+  image: 'edbizarro/gitlab-ci-pipeline-php:7.0'
+
+test:php-7.1:
+  <<: *job-test
+  image: 'edbizarro/gitlab-ci-pipeline-php:7.1'
+
+test:php-7.2:
+  <<: *job-test
+  image: 'edbizarro/gitlab-ci-pipeline-php:7.2'
+
+test:php-7.3:
+  <<: *job-test
+  image: 'edbizarro/gitlab-ci-pipeline-php:7.3'
+
+test:php-7.4:
+  <<: *job-test
+  image: 'edbizarro/gitlab-ci-pipeline-php:7.4'
