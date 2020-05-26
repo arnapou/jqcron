@@ -17,3 +17,7 @@ Features
 * custom binding with dom element (can be two ways sync for instance with input)
 * lots of options (reset button, default value, ...)
 * php class to test matching dates
+
+Alternatives
+========
+* [react-js-cron](https://github.com/xrutayisire/react-js-cron/): A React cron editor with antd inspired by jqCron
