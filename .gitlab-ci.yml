@@ -41,3 +41,7 @@ test:php-7.3:
 test:php-7.4:
   <<: *job-test
   image: 'edbizarro/gitlab-ci-pipeline-php:7.4'
+
+test:php-8.0:
+  <<: *job-test
+  image: 'edbizarro/gitlab-ci-pipeline-php:8.0'

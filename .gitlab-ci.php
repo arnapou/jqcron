@@ -7,16 +7,17 @@ try {
     flushBuffers();
     dlPhpUnitPhar('phpunit.phar', phpUnitVersion());
     dlUrl('composer-setup.php', 'https://getcomposer.org/installer');
-    system(PHP_BINARY . ' ' . escapeshellarg(__DIR__ . '/composer-setup.php'));
+    system(PHP_BINARY . ' ' . escapeshellarg(__DIR__ . '/composer-setup.php') . ' --' . (PHP_VERSION_ID < 70200 ? 1 : 2));
 } catch (\Exception $exception) {
     exit(1);
-} catch (\Error $error) {
+} catch (\Error $exception) {
     exit(1);
 }
 
 /**
  * cf. matrix https://phpunit.de/supported-versions.html
  *
+ * PHPUnit 9    PHP 7.3, 7.4, 8.0         February 7, 2020    Support ends on February 4, 2022
  * PHPUnit 8    PHP 7.2, 7.3, 7.4         February 1, 2019    Support ends on February 5, 2021
  * PHPUnit 7    PHP 7.1, 7.2, 7.3         February 2, 2018    Support ends on February 7, 2020
  * PHPUnit 6    PHP 7.0, 7.1, 7.2         February 3, 2017    Support ended on February 1, 2019
@@ -37,7 +38,10 @@ function phpUnitVersion()
     if (PHP_VERSION_ID < 70200) {
         return 7;
     }
-    return 8;
+    if (PHP_VERSION_ID < 80000) {
+        return 8;
+    }
+    return 9;
 }
 
 function dlPhpUnitPhar($filename, $version)
