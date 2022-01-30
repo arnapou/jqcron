@@ -45,3 +45,7 @@ test:php-7.4:
 test:php-8.0:
   <<: *job-test
   image: 'edbizarro/gitlab-ci-pipeline-php:8.0'
+
+test:php-8.1:
+  <<: *job-test
+  image: 'registry.gitlab.com/arnapou/docker/php:8.1-cron'

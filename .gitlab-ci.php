@@ -26,21 +26,11 @@ try {
  */
 function phpUnitVersion()
 {
-    if (PHP_VERSION_ID < 50600) {
-        return 4;
-    }
-    if (PHP_VERSION_ID < 70000) {
-        return 5;
-    }
-    if (PHP_VERSION_ID < 70100) {
-        return 6;
-    }
-    if (PHP_VERSION_ID < 70200) {
-        return 7;
-    }
-    if (PHP_VERSION_ID < 80000) {
-        return 8;
-    }
+    if (PHP_VERSION_ID < 50600) { return 4; }
+    if (PHP_VERSION_ID < 70000) { return 5; }
+    if (PHP_VERSION_ID < 70100) { return 6; }
+    if (PHP_VERSION_ID < 70200) { return 7; }
+    if (PHP_VERSION_ID < 80000) { return 8; }
     return 9;
 }
 
