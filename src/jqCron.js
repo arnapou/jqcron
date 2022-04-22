@@ -383,7 +383,7 @@ var jqCronDefaultSettings = {
 			(!settings.disabled) || _$obj.addClass('disable');
 			_$blocks.append(_$blockPERIOD);
 
-			if ( /^(ko)$/i.test(settings.lang) ) {
+			if ( /^(ko)$/i.test(settings.lang) || /^(am)$/i.test(settings.lang) ) {
 				_$blocks.append(_$blockMONTH, _$blockDOM);
 			}
 			else {
