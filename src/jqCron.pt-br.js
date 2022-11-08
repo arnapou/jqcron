@@ -31,6 +31,6 @@ jqCronDefaultSettings.texts.pt_br = {
 	error2: 'Quantidade errada de elementos',
 	error3: 'A propriedade jquery_element deve ser definida dentro dos parametros do jqCron',
 	error4: 'Expressão não reconhecida',
-	weekdays: ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'],
+	weekdays: ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'],
 	months: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agost', 'setembro', 'outubro', 'novembro', 'dezembro']
 };
