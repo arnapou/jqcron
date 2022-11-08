@@ -25,6 +25,6 @@ jqCronDefaultSettings.texts.fr = {
 	error2: 'Mauvais nombre d\'éléments',
 	error3: 'La propriété jquery_element doit être définie dans les paramètres jqCron',
 	error4: 'Expression non reconnue',
-	weekdays: ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
+	weekdays: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
 	months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 };
