@@ -31,6 +31,6 @@ jqCronDefaultSettings.texts.en = {
 	error2: 'Bad number of elements',
 	error3: 'The jquery_element should be set into jqCron settings',
 	error4: 'Unrecognized expression',
-	weekdays: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+	weekdays: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
 	months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 };
