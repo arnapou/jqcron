@@ -25,6 +25,6 @@ jqCronDefaultSettings.texts.de = {
 	error2: 'Ung&uuml;ltige Anzahl an Werten!',
 	error3: 'Das jquery_element sollte in den jqCron-Einstellungen gesetzt werden!',
 	error4: 'Ung&uuml;ltiger Ausdruck',
-	weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+	weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
 	months: ['J&auml;nner', 'Februar', 'M&auml;rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
 };
