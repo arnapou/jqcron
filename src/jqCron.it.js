@@ -31,7 +31,7 @@ jqCronDefaultSettings.texts.fr = {
 	error2: 'Numero di elementi non corretto',
 	error3: 'Il "jquery_element" deve essere impostato nelle impostazioni di jqCron',
 	error4: 'Espressione sconosciuto',
-	weekdays: ['lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato', 'domenica'],
+	weekdays: ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'],
 	months: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
 };
 
