@@ -1,18 +1,28 @@
 {
-	"name": "arnapou/jqcron",
-	"description": "Arnapou jqCron",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Arnaud Buathier",
-			"email": "arnaud@arnapou.net",
-			"homepage": "https://arnapou.net/"
-		}
-	],
-	"require": {
-		"php": "^5.4 || ^7.0 || ~8.0 || ~8.1"
-	},
-	"autoload": {
-		"files": [ "src/Cron.php" ]
-	}
+    "name": "arnapou/jqcron",
+    "description": "Library - Simple cron class bound to the JS lib that come with it.",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Arnaud Buathier",
+            "email": "arnaud@arnapou.net",
+            "homepage": "https://arnapou.net/"
+        }
+    ],
+    "require": {
+        "php": "~8.2.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.14",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^10.0",
+        "phpunit/php-code-coverage": "^10.0",
+        "vimeo/psalm": "^5.7"
+    },
+    "autoload": {
+        "files": [
+            "src/Cron.php"
+        ]
+    }
 }

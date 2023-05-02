@@ -1,0 +1,13 @@
+parameters:
+	level: 9
+	paths:
+		- src
+		- test_php
+	bootstrapFiles:
+		- vendor/autoload.php
+	ignoreErrors:
+		- path: src/Cron.php
+		  messages:
+		  	- '#Property .+ type has no value type specified in iterable type array.#'
+		  	- '#Method .+ return type has no value type specified in iterable type array.#'
+		  	- '#Method .+ has parameter .+ with no value type specified in iterable type array.#'

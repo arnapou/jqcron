@@ -1,8 +1,6 @@
 .idea
+.php_cs.cache
+.php-cs-fixer.cache
 .phpunit*.cache
-composer.lock
-composer-setup.php
-composer.phar
 githubhook.log
-phpunit*.phar
 vendor

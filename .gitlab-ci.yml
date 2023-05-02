@@ -1,51 +1,30 @@
 
 stages:
-  - test
+  - quality
 
-
-.job-test: &job-test
-  stage: test
+.generic: &generic
+  image: 'registry.gitlab.com/arnapou/docker/php:8.2-dev'
+  stage: quality
   only:
     - master
   before_script:
-    - php .gitlab-ci.php
-  script:
-    - php composer.phar install --no-interaction --optimize-autoloader
-    - php phpunit.phar
+    - composer install --no-interaction --optimize-autoloader --dev
   cache:
     key: "$CI_COMMIT_REF_SLUG:$CI_JOB_NAME"
     paths:
       - vendor
 
+test:php-8.2:
+  <<: *generic
+  script:
+    - vendor/bin/phpunit
 
-test:php-5.6:
-  <<: *job-test
-  image: 'edbizarro/gitlab-ci-pipeline-php:5.6'
+cs:php-8.2:
+  <<: *generic
+  script:
+    - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run
 
-test:php-7.0:
-  <<: *job-test
-  image: 'edbizarro/gitlab-ci-pipeline-php:7.0'
-
-test:php-7.1:
-  <<: *job-test
-  image: 'edbizarro/gitlab-ci-pipeline-php:7.1'
-
-test:php-7.2:
-  <<: *job-test
-  image: 'edbizarro/gitlab-ci-pipeline-php:7.2'
-
-test:php-7.3:
-  <<: *job-test
-  image: 'edbizarro/gitlab-ci-pipeline-php:7.3'
-
-test:php-7.4:
-  <<: *job-test
-  image: 'edbizarro/gitlab-ci-pipeline-php:7.4'
-
-test:php-8.0:
-  <<: *job-test
-  image: 'edbizarro/gitlab-ci-pipeline-php:8.0'
-
-test:php-8.1:
-  <<: *job-test
-  image: 'registry.gitlab.com/arnapou/docker/php:8.1-cron'
+sa:php-8.2:
+  <<: *generic
+  script:
+    - vendor/bin/phpstan
