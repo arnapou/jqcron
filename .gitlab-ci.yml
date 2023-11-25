@@ -3,7 +3,7 @@ stages:
   - quality
 
 .generic: &generic
-  image: 'registry.gitlab.com/arnapou/docker/php:8.2-dev'
+  image: 'registry.gitlab.com/arnapou/docker/php:8.3-dev'
   stage: quality
   only:
     - master
@@ -14,17 +14,19 @@ stages:
     paths:
       - vendor
 
-test:php-8.2:
+test:
   <<: *generic
   script:
     - vendor/bin/phpunit
 
-cs:php-8.2:
+cs:
   <<: *generic
+  variables:
+    PHP_CS_FIXER_IGNORE_ENV: 1
   script:
     - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run
 
-sa:php-8.2:
+sa:
   <<: *generic
   script:
     - vendor/bin/phpstan
