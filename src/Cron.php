@@ -108,7 +108,7 @@ class Cron
 
     protected array $dom = [];
 
-    public function __construct(null|string $cron = null)
+    public function __construct(string $cron = null)
     {
         if (!empty($cron)) {
             $this->setCron($cron);
@@ -348,14 +348,14 @@ class Cron
         $this->parseDate($date, $min, $hour, $day, $month, $weekday);
 
         return
-            (empty($this->minutes) || \in_array($min, $this->minutes, true)) &&
-            (empty($this->hours) || \in_array($hour, $this->hours, true)) &&
-            (empty($this->dom) || \in_array($day, $this->dom, true)) &&
-            (empty($this->months) || \in_array($month, $this->months, true)) &&
-            (
-                empty($this->dow) || \in_array($weekday, $this->dow, true) ||
-                (0 === $weekday && \in_array(7, $this->dow, true)) ||
-                (7 === $weekday && \in_array(0, $this->dow, true))
+            (empty($this->minutes) || \in_array($min, $this->minutes, true))
+            && (empty($this->hours) || \in_array($hour, $this->hours, true))
+            && (empty($this->dom) || \in_array($day, $this->dom, true))
+            && (empty($this->months) || \in_array($month, $this->months, true))
+            && (
+                empty($this->dow) || \in_array($weekday, $this->dow, true)
+                || (0 === $weekday && \in_array(7, $this->dow, true))
+                || (7 === $weekday && \in_array(0, $this->dow, true))
             );
     }
 
@@ -453,6 +453,7 @@ class Cron
                     $string = substr($string, \strlen($m[0]));
                     continue;
                 }
+
                 // something goes wrong in the expression
                 return [];
             }
