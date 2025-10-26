@@ -1,7 +1,7 @@
 {
   "name": "arnapou-jqcron",
   "authors": [
-    "Arnaud Buathier <arnaud@arnapou.net>"
+    "Arnaud Buathier <me@arnapou.net>"
   ],
   "description": "Cron jQuery plugin",
   "license": "MIT",

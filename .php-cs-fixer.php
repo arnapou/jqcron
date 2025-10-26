@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the Arnapou json-parser package.
  *
- * (c) Arnaud Buathier <arnaud@arnapou.net>
+ * (c) Arnaud Buathier <me@arnapou.net>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,7 @@ declare(strict_types=1);
 $header = <<<HEADER
     This file is part of the Arnapou jqCron package.
 
-    (c) Arnaud Buathier <arnaud@arnapou.net>
+    (c) Arnaud Buathier <me@arnapou.net>
 
     For the full copyright and license information, please view the LICENSE
     file that was distributed with this source code.
