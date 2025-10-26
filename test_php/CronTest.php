@@ -53,16 +53,16 @@ class CronTest extends TestCase
     public function testMatchExact(): void
     {
         $cron = new Cron('10-30/5 12 * * *');
-        self::assertNotTrue($cron->matchExact(new \DateTime('2012-07-01 13:25:10')));
-        self::assertTrue($cron->matchExact(new \DateTime('2012-07-01 12:15:20')));
+        self::assertNotTrue($cron->matchExact(new DateTime('2012-07-01 13:25:10')));
+        self::assertTrue($cron->matchExact(new DateTime('2012-07-01 12:15:20')));
     }
 
     public function testMatchWithMargin(): void
     {
         $cron = new Cron('30 12 * * *');
-        self::assertNotTrue($cron->matchWithMargin(new \DateTime('2012-07-01 12:32:10'), -1, 5));
-        self::assertNotTrue($cron->matchWithMargin(new \DateTime('2012-07-01 12:24:10'), -1, 5));
-        self::assertTrue($cron->matchWithMargin(new \DateTime('2012-07-01 12:33:10'), -3, 5));
-        self::assertTrue($cron->matchWithMargin(new \DateTime('2012-07-01 12:25:10'), -3, 5));
+        self::assertNotTrue($cron->matchWithMargin(new DateTime('2012-07-01 12:32:10'), -1, 5));
+        self::assertNotTrue($cron->matchWithMargin(new DateTime('2012-07-01 12:24:10'), -1, 5));
+        self::assertTrue($cron->matchWithMargin(new DateTime('2012-07-01 12:33:10'), -3, 5));
+        self::assertTrue($cron->matchWithMargin(new DateTime('2012-07-01 12:25:10'), -3, 5));
     }
 }

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.0/phpunit.xsd"
          colors="true"
-         bootstrap="test_php/bootstrap.php"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory="/tmp/phpunit"
          beStrictAboutOutputDuringTests="true"
-         cacheDirectory=".phpunit.cache"
-         beStrictAboutCoverageMetadata="false"
+         beStrictAboutCoverageMetadata="true"
+         failOnDeprecation="true"
+         failOnNotice="true"
+         failOnWarning="true"
 >
     <coverage/>
     <source>
